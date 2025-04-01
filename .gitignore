@@ -1,0 +1,86 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+lerna-debug.log*
+
+# Informes de diagnóstico
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Datos de ejecución
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Directorio para bibliotecas instrumentadas generadas por jscoverage/JSCover
+lib-cov
+
+# Directorio de cobertura utilizado por herramientas como istanbul
+coverage
+*.lcov
+
+# Salida de cobertura de nyc
+.nyc_output
+
+# Almacenamiento intermedio de Grunt
+.grunt
+
+# Directorio de dependencias de Bower
+bower_components
+
+# Configuración de node-waf
+.lock-wscript
+
+# Complementos binarios compilados
+build/Release
+
+# Directorios de dependencias
+node_modules/
+jspm_packages/
+
+# Salidas de compilación
+dist/
+build/
+
+# Archivos de configuración de entorno
+.env
+.env.test
+.env.production
+
+# Archivos temporales
+*.tmp
+*.swp
+
+# Archivos de bloqueo
+package-lock.json
+yarn.lock
+
+# Archivos de bases de datos locales
+*.sqlite
+
+# Archivos de registro de procesos
+*.pid
+
+# Archivos de depuración
+*.seed
+
+# Archivos de bloqueo de procesos
+*.pid.lock
+
+# Archivos de caché
+.cache
+
+# Archivos de configuración de IDEs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
