@@ -6,6 +6,20 @@
     <title>Weather App</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <form id="weatherForm">
+        <input
+          type="text"
+          id="locationInput"
+          placeholder="Enter location"
+          required
+        />
+        <button type="submit">Get Weather</button>
+      </form>
+      <div id="weatherInfo">
+        <!-- La info se inserta acá -->
+      </div>
+    </div>
+    <script src="bundle.js"></script>
   </body>
 </html>
