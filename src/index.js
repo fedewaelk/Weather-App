@@ -1,9 +1,9 @@
-import './styles.css';
+import './styles.css'; // index.js
 import { processWeatherData } from './weatherProcessor.js';
 import { getDefaultLocation } from './geolocation.js';
 
 async function getWeather(location) {
-  const apiKey = 'RM5YCYXF45PFLW3Y6N36CSHXH'; // Recordar ocultar la clave API en producción
+  const apiKey = 'RM5YCYXF45PFLW3Y6N36CSHXH'; // Recordar ocultar clave API en producción
   const baseUrl =
     'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline';
   const url = `${baseUrl}/${encodeURIComponent(
@@ -18,65 +18,32 @@ async function getWeather(location) {
     const weatherData = await response.json();
     const processedData = processWeatherData(weatherData);
     console.log(processedData);
-    displayWeatherInfo(processedData);
+    updateHeader(processedData);
   } catch (error) {
     console.error('Error fetching weather data:', error);
   }
 }
 
-function displayWeatherInfo(data) {
-  const weatherDiv = document.getElementById('weatherInfo');
-  if (!data) {
-    weatherDiv.innerHTML = '<p>No weather data available</p>';
-    return;
-  }
-  const {
-    locationName,
-    datetime,
-    conditions,
-    temp,
-    feelslike,
-    icon,
-    windspeed,
-    precipprob,
-  } = data;
-
-  weatherDiv.innerHTML = `
-    <h2>Weather in ${locationName}</h2>
-    <p><strong>Date:</strong> ${datetime}</p>
-    <p><strong>Conditions:</strong> ${conditions}</p>
-    <p><strong>Temperature:</strong> ${temp}°C</p>
-    <p><strong>Feels Like:</strong> ${feelslike}°C</p>
-    <p><strong>Wind Speed:</strong> ${windspeed} km/h</p>
-    <p><strong>Precipitation Probability:</strong> ${precipprob}%</p>
-    <img id="weatherIcon" alt="Weather Icon" />
-  `;
-
+function updateHeader(data) {
+  if (!data) return;
+  const { locationName, temp, icon } = data;
+  document.getElementById('locationDisplay').textContent = locationName;
+  document.getElementById('tempDisplay').textContent = `${temp}°C`;
   loadWeatherIcon(icon);
 }
 
 async function loadWeatherIcon(iconCode) {
   try {
+    // Se asume que el nombre del archivo SVG es igual al código de ícono que devuelve la API.
     const iconModule = await import(`./icons/${iconCode}.svg`);
-    const iconUrl = iconModule.default;
-    document.getElementById('weatherIcon').src = iconUrl;
+    document.getElementById('iconDisplay').src = iconModule.default;
   } catch (error) {
     console.error('Error loading icon:', error);
-    document.getElementById('weatherIcon').src = './icons/default.svg';
+    document.getElementById('iconDisplay').src = './icons/default.svg';
   }
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-  // Ubicación del usuario por defecto
-  try {
-    const defaultLocation = await getDefaultLocation();
-    getWeather(defaultLocation);
-  } catch (error) {
-    console.error(error);
-    // agregar ubicación por defecto o dejar que el usuario la ingrese
-  }
-
-  // Configuración del formulario para poder ingresar otra ubicación
+document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('weatherForm');
   form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -86,4 +53,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       getWeather(location);
     }
   });
+
+  getDefaultLocation()
+    .then((loc) => getWeather(loc))
+    .catch((error) => console.error(error));
 });

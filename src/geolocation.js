@@ -8,13 +8,11 @@ export function getDefaultLocation() {
           resolve(`${latitude},${longitude}`);
         },
         (error) => {
-          reject(new Error('Error al obtener la ubicación: ' + error.message));
+          reject(new Error('Error obtaining location: ' + error.message));
         }
       );
     } else {
-      reject(
-        new Error('La geolocalización no está soportada en este navegador.')
-      );
+      reject(new Error('Geolocation is not supported by this browser.'));
     }
   });
 }

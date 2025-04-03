@@ -4,22 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
+    <!-- Enlaza el CSS -->
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div id="app">
-      <form id="weatherForm">
-        <input
-          type="text"
-          id="locationInput"
-          placeholder="Enter location"
-          required
-        />
-        <button type="submit">Get Weather</button>
-      </form>
-      <div id="weatherInfo">
-        <!-- La info se inserta acá -->
+    <header class="sticky-header">
+      <!-- Sección izquierda: resumen del clima -->
+      <div class="weather-summary">
+        <span id="locationDisplay">--</span>
+        <span id="tempDisplay">--°C</span>
+        <img id="iconDisplay" alt="Weather Icon" src="./icons/default.svg" />
       </div>
-    </div>
+      <!-- Sección derecha: buscador -->
+      <div class="search-bar">
+        <form id="weatherForm">
+          <input
+            type="text"
+            id="locationInput"
+            placeholder="Enter location"
+            required
+          />
+          <button type="submit">Get Weather</button>
+        </form>
+      </div>
+    </header>
+    <main>
+      <div id="weatherInfo">
+        <!-- Aquí podrías agregar información adicional si lo deseas -->
+      </div>
+    </main>
     <script src="bundle.js"></script>
   </body>
 </html>
