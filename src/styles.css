@@ -1,6 +1,7 @@
 body {
   margin: 0;
-  font-family: sans-serif;
+  font-family: Arial, sans-serif;
+  background: #f0f2f5;
 }
 
 .sticky-header {
@@ -45,4 +46,68 @@ body {
   margin-left: 5px;
   font-size: 1rem;
   cursor: pointer;
+}
+
+.weather-card {
+  background: #fff;
+  max-width: 500px;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.card-header {
+  background: #0077cc;
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.card-header .times {
+  text-align: right;
+  font-size: 0.8rem;
+}
+
+.card-body {
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
+}
+
+.card-body .left-column,
+.card-body .right-column {
+  width: 45%;
+}
+
+.left-column {
+  display: flex;
+}
+
+.left-column img {
+  width: 60px;
+  height: 60px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.left-column p,
+.right-column p {
+  margin: 5px;
+}
+
+.temperature {
+  font-weight: bold;
+  font-size: 3rem;
+}
+
+.unit {
+  font-size: 1rem;
 }

@@ -15,5 +15,6 @@ export function processWeatherData(data) {
     icon: current.icon,
     windspeed: current.windspeed,
     precipprob: current.precipprob,
+    humidity: current.humidity,
   };
 }
