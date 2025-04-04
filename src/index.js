@@ -20,6 +20,7 @@ async function getWeather(location) {
     console.log(processedData);
     updateHeader(processedData);
     updateCard(processedData);
+    updateDailyList(processedData.daily);
   } catch (error) {
     console.error('Error fetching weather data:', error);
   }
@@ -76,7 +77,7 @@ function updateCard(data) {
       </div>
     </div>
   `;
-  document.getElementById('weatherCard').innerHTML = cardHTML;
+  document.getElementById('weather-card').innerHTML = cardHTML;
   loadCardIcon(data.icon);
 }
 
@@ -87,6 +88,49 @@ async function loadCardIcon(iconCode) {
   } catch (error) {
     console.error('Error loading card icon:', error);
     document.getElementById('cardIconDisplay').src = './icons/default.svg';
+  }
+}
+
+function updateDailyList(dailyData) {
+  if (!dailyData || dailyData.length === 0) return;
+  const dailyListContainer = document.getElementById('daily-list');
+  dailyListContainer.innerHTML = `
+    <div class="daily-card">
+      <div class="card-header">
+        <h2>Daily Forecast</h2>
+      </div>
+      <div class="card-body" id="dailyItemsContainer"></div>
+    </div>
+  `;
+
+  const dailyItemsContainer = document.getElementById('dailyItemsContainer');
+
+  dailyData.forEach((day, index) => {
+    const dayHTML = `
+      <div class="daily-item">
+        <span class="daily-date">${day.datetime}</span>
+        <img id="dailyIcon-${index}" class="daily-icon" alt="Daily Weather Icon" src="./icons/default.svg" />
+        <span class="daily-tempmax">${day.tempmax}°C</span>
+        <span class="daily-tempmin">${day.tempmin}°C</span>
+        <span class="daily-description">${day.conditions}</span>
+      </div>
+    `;
+    dailyItemsContainer.innerHTML += dayHTML;
+  });
+
+  // Cargar los íconos de cada día de forma dinámica
+  dailyData.forEach((day, index) => {
+    loadDailyIcon(day.icon, `dailyIcon-${index}`);
+  });
+}
+
+async function loadDailyIcon(iconCode, elementId) {
+  try {
+    const iconModule = await import(`./icons/${iconCode}.svg`);
+    document.getElementById(elementId).src = iconModule.default;
+  } catch (error) {
+    console.error('Error loading daily icon:', error);
+    document.getElementById(elementId).src = './icons/default.svg';
   }
 }
 

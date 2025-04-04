@@ -4,7 +4,7 @@ body {
   background: #f0f2f5;
 }
 
-.sticky-header {
+header {
   position: sticky;
   top: 0;
   background: #f8f8f8;
@@ -105,9 +105,54 @@ body {
 
 .temperature {
   font-weight: bold;
-  font-size: 3rem;
+  font-size: 3.5rem;
 }
 
 .unit {
   font-size: 1rem;
+}
+
+.daily-card {
+  background: #fff;
+  max-width: 500px;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.daily-card .card-header {
+  font-size: 1.2rem;
+  background: #0077cc;
+  color: #fff;
+  padding: 10px 20px;
+}
+
+.daily-card .card-body {
+  display: grid;
+  padding: 10px 20px;
+}
+
+.daily-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.daily-item:not(:last-child) {
+  border-bottom: 1px solid grey;
+}
+
+.daily-item span {
+  margin: 0 10px;
+}
+
+.daily-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.daily-tempmax,
+.daily-tempmin {
+  min-width: 50px;
 }

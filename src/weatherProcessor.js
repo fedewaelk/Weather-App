@@ -1,3 +1,4 @@
+// weatherProcessor.js
 export function processWeatherData(data) {
   if (!data || !data.days || data.days.length === 0) {
     console.error('No weather data available');
@@ -16,5 +17,6 @@ export function processWeatherData(data) {
     windspeed: current.windspeed,
     precipprob: current.precipprob,
     humidity: current.humidity,
+    daily: data.days, // Array con el pronóstico diario
   };
 }
