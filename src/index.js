@@ -3,7 +3,7 @@ import { processWeatherData } from './weatherProcessor.js';
 import { getDefaultLocation } from './geolocation.js';
 
 async function getWeather(location) {
-  const apiKey = 'RM5YCYXF45PFLW3Y6N36CSHXH'; // Recordar ocultar clave API en producción
+  const apiKey = 'RM5YCYXF45PFLW3Y6N36CSHXH'; // Recordar ocultar clave API cuando sea posible
   const baseUrl =
     'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline';
   const url = `${baseUrl}/${encodeURIComponent(
@@ -21,6 +21,7 @@ async function getWeather(location) {
     updateHeader(processedData);
     updateCard(processedData);
     updateDailyList(processedData.daily);
+    updateHourlyList(processedData.hourly);
   } catch (error) {
     console.error('Error fetching weather data:', error);
   }
@@ -91,6 +92,73 @@ async function loadCardIcon(iconCode) {
   }
 }
 
+function updateHourlyList(hourlyData) {
+  if (!hourlyData || hourlyData.length === 0) return;
+
+  const currentHour = new Date().getHours();
+
+  // Buscar el índice de la primera entrada cuyo "datetime" tenga la hora >= currentHour.
+  let startingIndex = hourlyData.findIndex((hour) => {
+    const hourValue = parseInt(hour.datetime.split(':')[0]);
+    return hourValue >= currentHour;
+  });
+  if (startingIndex === -1) {
+    startingIndex = 0;
+  }
+
+  // Extraer las horas desde startingIndex hasta el final
+  let hoursToShow = hourlyData.slice(startingIndex);
+  // Si no hay 8 elementos, completar con las primeras del arreglo
+  if (hoursToShow.length < 8) {
+    const remaining = 8 - hoursToShow.length;
+    hoursToShow = hoursToShow.concat(hourlyData.slice(0, remaining));
+  } else {
+    // Solo necesitamos las primeras 8
+    hoursToShow = hoursToShow.slice(0, 8);
+  }
+
+  const hourlyListContainer = document.getElementById('hourly-list');
+  hourlyListContainer.innerHTML = `
+    <div class="hourly-card">
+      <div class="card-header">
+        <h2>Hourly Forecast</h2>
+      </div>
+      <div class="card-body" id="hourlyItemsContainer"></div>
+    </div>
+  `;
+
+  const hourlyItemsContainer = document.getElementById('hourlyItemsContainer');
+
+  hoursToShow.forEach((hour, index) => {
+    const formattedTime = hour.datetime.split(':')[0];
+
+    const hourHTML = `
+      <div class="hourly-item">
+        <span class="hourly-time">${formattedTime}</span>
+        <img id="hourlyIcon-${index}" class="hourly-icon" alt="Hourly Weather Icon" src="./icons/default.svg" />
+        <span class="hourly-temp">${hour.temp}°C</span>
+        <span class="hourly-precipprob">&#128167; ${hour.precipprob}%</span>
+      </div>
+    `;
+
+    hourlyItemsContainer.innerHTML += hourHTML;
+  });
+
+  hoursToShow.forEach((hour, index) => {
+    loadHourlyIcon(hour.icon, `hourlyIcon-${index}`);
+  });
+}
+
+async function loadHourlyIcon(iconCode, elementId) {
+  try {
+    const iconModule = await import(`./icons/${iconCode}.svg`);
+    document.getElementById(elementId).src = iconModule.default;
+  } catch (error) {
+    console.error('Error loading hourly icon:', error);
+    document.getElementById(elementId).src = './icons/default.svg';
+  }
+}
+
 function updateDailyList(dailyData) {
   if (!dailyData || dailyData.length === 0) return;
   const dailyListContainer = document.getElementById('daily-list');
@@ -118,7 +186,6 @@ function updateDailyList(dailyData) {
     dailyItemsContainer.innerHTML += dayHTML;
   });
 
-  // Cargar los íconos de cada día de forma dinámica
   dailyData.forEach((day, index) => {
     loadDailyIcon(day.icon, `dailyIcon-${index}`);
   });

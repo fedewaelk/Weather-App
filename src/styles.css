@@ -48,6 +48,7 @@ header {
   cursor: pointer;
 }
 
+/*-ACTUAL-*/
 .weather-card {
   background: #fff;
   max-width: 500px;
@@ -112,6 +113,7 @@ header {
   font-size: 1rem;
 }
 
+/*-POR DIA-*/
 .daily-card {
   background: #fff;
   max-width: 500px;
@@ -155,4 +157,38 @@ header {
 .daily-tempmax,
 .daily-tempmin {
   min-width: 50px;
+}
+
+/*-POR HORA-*/
+.hourly-card {
+  background: #fff;
+  max-width: 500px;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.hourly-card .card-header {
+  background: #0077cc;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+}
+
+.hourly-card .card-body {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.hourly-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.hourly-icon {
+  width: 40px;
+  height: 40px;
 }
