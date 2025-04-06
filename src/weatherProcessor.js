@@ -17,6 +17,8 @@ export function processWeatherData(data) {
     windspeed: current.windspeed,
     precipprob: current.precipprob,
     humidity: current.humidity,
+    pressure: current.pressure,
+    description: today.description,
     hourly: today.hours.map((hour) => ({
       datetime: hour.datetime,
       temp: hour.temp,
