@@ -215,5 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Al iniciar, intenta obtener la ubicación predeterminada por geolocalización
   getDefaultLocation()
     .then((loc) => getWeather(loc))
-    .catch((error) => console.error(error));
+    .catch((error) => {
+      console.error('Error geting default location:', error);
+      getWeather('Roma');
+    });
 });
