@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunktemplate=self.webpackChunktemplate||[]).push([[665],{665:(e,p,s)=>{e.exports=s.p+"icons/partly-cloudy-day.svg"}}]);

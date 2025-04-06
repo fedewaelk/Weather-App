@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunktemplate=self.webpackChunktemplate||[]).push([[831],{831:(e,s,p)=>{e.exports=p.p+"icons/hail.svg"}}]);

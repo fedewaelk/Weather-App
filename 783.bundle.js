@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunktemplate=self.webpackChunktemplate||[]).push([[783],{783:(e,s,p)=>{e.exports=p.p+"icons/wind.svg"}}]);

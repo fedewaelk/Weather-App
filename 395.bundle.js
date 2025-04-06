@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunktemplate=self.webpackChunktemplate||[]).push([[395],{395:(e,s,t)=>{e.exports=t.p+"icons/snow-showers-night.svg"}}]);

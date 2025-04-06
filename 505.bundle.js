@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunktemplate=self.webpackChunktemplate||[]).push([[505],{505:(e,s,t)=>{e.exports=t.p+"icons/thunder.svg"}}]);
